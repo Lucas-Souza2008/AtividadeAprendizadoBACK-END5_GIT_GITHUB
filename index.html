@@ -1,11 +1,158 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Checkout de Compra</title>
 </head>
+<style>
+    body {
+        background-color: #f4f4f5;
+        margin: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        font-family: Arial, sans-serif;
+    }
+
+    section {
+        background-color: rgb(255, 255, 255);
+        border: 1px solid rgba(173, 173, 173, 0.3);
+        border-radius: 20px;
+        width: 90%;            
+        max-width: 450px; /* Largura ajustada para o formato compacto da foto */
+        min-height: 600px;     
+        padding: 30px;
+        box-sizing: border-box; 
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .primeiroTexto {
+        color: black;
+        font-size: 28px;
+        font-weight: bold;
+        text-align: center;
+        margin-top: 10px;
+        margin-bottom: 30px;
+    }
+
+    /* ESTILIZAÇÃO DOS LABELS E INPUTS */
+    .campo-grupo {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px;
+    }
+
+    .campo-grupo label {
+        font-size: 14px;
+        font-weight: bold;
+        color: #4b5563;
+        margin-bottom: 8px;
+    }
+
+    .campo-grupo input {
+        padding: 12px;
+        border: 1px solid #d1d5db;
+        border-radius: 8px;
+        font-size: 16px;
+        color: #374151;
+        outline: none;
+    }
+
+    .titulo-pagamento {
+        font-size: 14px;
+        font-weight: bold;
+        color: #4b5563;
+        text-align: center;
+        margin-top: 25px;
+        margin-bottom: 15px;
+    }
+
+    /* GRID PARA OS BOTÕES FICAREM LADO A LADO */
+    .botoes-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+        margin-bottom: 30px;
+    }
+
+    /* ESTILO BASE PARA TODOS OS BOTÕES DE FORMA DE PAGAMENTO */
+    .btn-pagamento {
+        padding: 12px;
+        font-size: 14px;
+        font-weight: bold;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: opacity 0.2s ease;
+    }
+
+    .btn-pagamento:hover {
+        opacity: 0.9;
+    }
+
+    /* CORES ESPECÍFICAS DE CADA BOTÃO DA IMAGEM */
+    .btn-pix { background-color: #0d9488; }       /* Verde água / Teal */
+    .btn-dinheiro { background-color: #16a34a; }  /* Verde */
+    .btn-cartao { background-color: #0070f3; }    /* Azul */
+    .btn-parcelado { background-color: #6b7280; } /* Cinza */
+
+    /* CAIXA DE RESULTADO DO TOTAL (CINZA COM BORDA AZUL) */
+    .box-total {
+        background-color: #f8fafc;
+        border-left: 4px solid #0070f3; /* Borda azul vertical na esquerda */
+        border-radius: 0 8px 8px 0;
+        padding: 20px;
+        margin-top: auto; /* Empurra para o fim do container */
+    }
+
+    .box-total p {
+        margin: 0;
+        font-size: 14px;
+        color: #374151;
+        font-weight: bold;
+    }
+
+    .box-total .resultado-total {
+        font-size: 20px;
+        color: #111827;
+        margin-top: 6px;
+    }
+</style>
 <body>
+    
+    <section>
+        <h1 class="primeiroTexto">Checkout de Compra</h1>
+
+        <!-- Campos de Entrada -->
+        <div class="campo-grupo">
+            <label>Preço do Produto (R$):</label>
+            <input type="text" placeholder="Ex: 100.00">
+        </div>
+
+        <div class="campo-grupo">
+            <label>Valor do Frete (R$):</label>
+            <input type="text" placeholder="Ex: 15.00">
+        </div>
+
+        <!-- Seção de Formas de Pagamento -->
+        <div class="titulo-pagamento">Forma de Pagamento:</div>
+        
+        <div class="botoes-grid">
+            <button class="btn-pagamento btn-pix">PIX (-10%)</button>
+            <button class="btn-pagamento btn-dinheiro">Dinheiro (-5%)</button>
+            <button class="btn-pagamento btn-cartao">Cartão à vista</button>
+            <button class="btn-pagamento btn-parcelado">Parcelado (+5%)</button>
+        </div>
+
+        <!-- Box de Resumo Final -->
+        <div class="box-total">
+            <p>Forma: -</p>
+            <p class="resultado-total">Total: R$ 0.00</p>
+        </div>
+    </section>
     
 </body>
 </html>
