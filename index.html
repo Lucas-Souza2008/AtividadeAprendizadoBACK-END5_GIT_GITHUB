@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,11 +21,11 @@
         background-color: rgb(255, 255, 255);
         border: 1px solid rgba(173, 173, 173, 0.3);
         border-radius: 20px;
-        width: 90%;            
-        max-width: 450px; /* Largura ajustada para o formato compacto da foto */
-        min-height: 600px;     
+        width: 90%;
+        max-width: 450px;
+        min-height: 600px;
         padding: 30px;
-        box-sizing: border-box; 
+        box-sizing: border-box;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
     }
 
@@ -37,7 +38,6 @@
         margin-bottom: 30px;
     }
 
-    /* ESTILIZAÇÃO DOS LABELS E INPUTS */
     .campo-grupo {
         display: flex;
         flex-direction: column;
@@ -69,7 +69,6 @@
         margin-bottom: 15px;
     }
 
-    /* GRID PARA OS BOTÕES FICAREM LADO A LADO */
     .botoes-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
@@ -77,7 +76,6 @@
         margin-bottom: 30px;
     }
 
-    /* ESTILO BASE PARA TODOS OS BOTÕES DE FORMA DE PAGAMENTO */
     .btn-pagamento {
         padding: 12px;
         font-size: 14px;
@@ -93,19 +91,17 @@
         opacity: 0.9;
     }
 
-    /* CORES ESPECÍFICAS DE CADA BOTÃO DA IMAGEM */
-    .btn-pix { background-color: #0d9488; }       /* Verde água / Teal */
-    .btn-dinheiro { background-color: #16a34a; }  /* Verde */
-    .btn-cartao { background-color: #0070f3; }    /* Azul */
-    .btn-parcelado { background-color: #6b7280; } /* Cinza */
+    .btn-pix { background-color: #0d9488; }
+    .btn-dinheiro { background-color: #16a34a; }
+    .btn-cartao { background-color: #0070f3; }
+    .btn-parcelado { background-color: #6b7280; }
 
-    /* CAIXA DE RESULTADO DO TOTAL (CINZA COM BORDA AZUL) */
     .box-total {
         background-color: #f8fafc;
-        border-left: 4px solid #0070f3; /* Borda azul vertical na esquerda */
+        border-left: 4px solid #0070f3;
         border-radius: 0 8px 8px 0;
         padding: 20px;
-        margin-top: auto; /* Empurra para o fim do container */
+        margin-top: auto;
     }
 
     .box-total p {
@@ -114,45 +110,74 @@
         color: #374151;
         font-weight: bold;
     }
-
-    .box-total .resultado-total {
-        font-size: 20px;
-        color: #111827;
-        margin-top: 6px;
-    }
 </style>
+
 <body>
-    
+
     <section>
         <h1 class="primeiroTexto">Checkout de Compra</h1>
 
         <!-- Campos de Entrada -->
         <div class="campo-grupo">
-            <label>Preço do Produto (R$):</label>
-            <input type="text" placeholder="Ex: 100.00">
+            <label>Preço do Produto (R\$):</label>
+            <input type="text" placeholder="Ex: 100.00" id="preco">
         </div>
 
         <div class="campo-grupo">
-            <label>Valor do Frete (R$):</label>
-            <input type="text" placeholder="Ex: 15.00">
+            <label>Valor do Frete (R\$):</label>
+            <input type="text" placeholder="Ex: 15.00" id="frete">
         </div>
 
-        <!-- Seção de Formas de Pagamento -->
+        <!-- Seção de Formas de Pagamento (Atualizado com a nova função) -->
         <div class="titulo-pagamento">Forma de Pagamento:</div>
-        
+
         <div class="botoes-grid">
-            <button class="btn-pagamento btn-pix">PIX (-10%)</button>
-            <button class="btn-pagamento btn-dinheiro">Dinheiro (-5%)</button>
-            <button class="btn-pagamento btn-cartao">Cartão à vista</button>
-            <button class="btn-pagamento btn-parcelado">Parcelado (+5%)</button>
+            <button class="btn-pagamento btn-pix" id="pagaPix" onclick="pagamento('pix')">PIX (-10%)</button>
+            <button class="btn-pagamento btn-dinheiro" onclick="pagamento('dinheiro')">Dinheiro (-5%)</button>
+            <button class="btn-pagamento btn-cartao" onclick="pagamento('cartao')">Cartão à vista</button>
+            <button class="btn-pagamento btn-parcelado" onclick="pagamento('parcelado')">Parcelado (+5%)</button>
         </div>
 
         <!-- Box de Resumo Final -->
         <div class="box-total">
-            <p>Forma: -</p>
-            <p class="resultado-total">Total: R$ 0.00</p>
+            <p id="forma-selecionada">Forma: -</p>
+            <p class="resultado">Total: R\$ 0.00</p>
         </div>
     </section>
-    
+
+    <script>
+        function pagamento(metodo) {
+            let preco = Number(document.getElementById("preco").value);
+            let frete = Number(document.getElementById("frete").value);
+            let subTotal = preco + frete;
+            
+            let valorApagar = 0;
+            let textoForma = "";
+
+            // Verifica qual método foi clicado e faz o cálculo/texto correto
+            if (metodo === 'pix') {
+                valorApagar = subTotal * 0.9;
+                textoForma = "Forma: PIX (-10%)";
+            } 
+            else if (metodo === 'dinheiro') {
+                valorApagar = subTotal * 0.95;
+                textoForma = "Forma: Dinheiro (-5%)";
+            } 
+            else if (metodo === 'cartao') {
+                valorApagar = subTotal;
+                textoForma = "Forma: Cartão à vista";
+            } 
+            else if (metodo === 'parcelado') {
+                valorApagar = subTotal * 1.05;
+                textoForma = "Forma: Parcelado (+5%)";
+            }
+
+            // Altera os elementos na tela
+            document.getElementById('forma-selecionada').innerText = textoForma;
+            document.getElementsByClassName('resultado')[0].innerText = `Total: R$ ${valorApagar.toFixed(2)}`;
+        }
+    </script>
+
 </body>
+
 </html>
